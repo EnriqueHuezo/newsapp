@@ -10,14 +10,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.eh.newsapp.ui.theme.NewsappTheme
+import com.eh.newsapp.main.ui.theme.NewsappTheme
+import org.koin.compose.KoinContext
+import org.koin.core.component.KoinComponent
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), KoinComponent {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             NewsappTheme {
+                KoinContext {
 
+                }
             }
         }
     }
