@@ -2,25 +2,34 @@ package com.eh.newsapp.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Upsert
+import com.eh.newsapp.core.database.DatabaseInfo
 import com.eh.newsapp.core.database.entity.ArticleEntity
+import com.eh.newsapp.core.database.entity.ArticleWithSource
+import com.eh.newsapp.core.database.entity.SourceEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface IArticleDAO {
-    @Upsert
-    suspend fun upsert(article: ArticleEntity)
+    @Query("SELECT * FROM ${DatabaseInfo.ARTICLES_TABLE}")
+    fun getArticlesWithSource(): Flow<List<ArticleWithSource>>
 
-    @Upsert
-    suspend fun upsert(articles: List<ArticleEntity>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSource(sourceEntity: SourceEntity)
 
-    @Query("SELECT * FROM articles")
-    fun getArticles(): Flow<List<ArticleEntity>>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertArticle(articleEntity: ArticleEntity)
 
-    @Delete
-    suspend fun delete(article: ArticleEntity)
-
-    @Query("DELETE FROM articles")
-    suspend fun deleteAll()
+    @Transaction
+    suspend fun insertArticleWithSource(
+        sourceEntity: SourceEntity,
+        articleEntity: ArticleEntity
+    ) {
+        insertArticle(articleEntity)
+        insertSource(sourceEntity)
+    }
 }

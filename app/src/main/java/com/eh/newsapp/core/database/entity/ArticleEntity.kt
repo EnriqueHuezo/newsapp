@@ -1,16 +1,44 @@
 package com.eh.newsapp.core.database.entity
 
+import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import androidx.room.Relation
+import com.eh.newsapp.core.database.DatabaseInfo
+import com.eh.newsapp.core.model.Article
 
-@Entity(tableName = "articles")
+@Entity(
+    tableName = DatabaseInfo.ARTICLES_TABLE,
+    foreignKeys = [ForeignKey(
+        entity = SourceEntity::class,
+        parentColumns = ["sourceId"],
+        childColumns = ["sourceId"],
+        onDelete = ForeignKey.CASCADE
+
+    )],
+    indices = [Index(
+        value = ["sourceId"]
+    )]
+)
 data class ArticleEntity(
-    val id: String,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val name: String,
     val author: String,
-    val content: String,
-    val description: String,
-    val publishedAt: String,
-    val source: String,
     val title: String,
+    val description: String,
     val url: String,
-    val urlToImage: String
+    val urlToImage: String,
+    val publishedAt: String,
+    val content: String,
+    val sourceId: String
+)
+
+data class ArticleWithSource(
+    @Embedded val articleEntity: ArticleEntity,
+    @Relation(
+        parentColumn = "sourceId",
+        entityColumn = "sourceId"
+    ) val sourceEntity: SourceEntity
 )

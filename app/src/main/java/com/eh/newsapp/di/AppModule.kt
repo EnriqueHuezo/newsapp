@@ -6,5 +6,13 @@ object AppModule {
         WebServiceModule.module
     )
 
-    val modules = module
+    private val databaseModule = listOf(
+        DatabaseModule.module
+    )
+
+    private val useCaseModule = listOf(
+        UseCasesModule.module
+    )
+
+    val modules = module + databaseModule + useCaseModule
 }

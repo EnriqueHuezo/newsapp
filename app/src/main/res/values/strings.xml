@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">newsapp</string>
+
+    <!-- LocalDatasource Resources -->
+    <string name="local_default_loading_message">Cargando…</string>
+    <string name="local_default_saving_message">Guardando…</string>
 </resources>
