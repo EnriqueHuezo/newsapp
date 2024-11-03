@@ -97,7 +97,28 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
 
     // Coil
-    implementation("io.coil-kt.coil3:coil-compose:3.0.0-rc01")
+    implementation("io.coil-kt.coil3:coil-compose:3.0.0-rc02")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0-rc02")
+
+    //Lottie
+    implementation("com.airbnb.android:lottie-compose:6.2.0")
+
+    //Navigation Compose
+    val navVersion = "2.8.1"
+    implementation("androidx.navigation:navigation-compose:$navVersion")
+
+    //DataStore
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    //Activity
+    implementation("androidx.activity:activity-ktx:1.9.2")
+    implementation("androidx.activity:activity-compose:1.9.2")
+
+    //Android and KTX
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.6")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

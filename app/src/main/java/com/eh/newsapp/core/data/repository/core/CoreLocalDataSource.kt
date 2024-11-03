@@ -1,5 +1,6 @@
 package com.eh.newsapp.core.data.repository.core
 
+import androidx.room.Transaction
 import com.eh.newsapp.core.database.NewsDatabase
 import com.eh.newsapp.core.database.entity.ArticleEntity
 import com.eh.newsapp.core.database.entity.ArticleWithSource
@@ -10,16 +11,16 @@ class CoreLocalDataSource(
     private val database: NewsDatabase
 ): ICoreDataSource.Local {
     override suspend fun getArticlesWithSource(): Flow<List<ArticleWithSource>> =
-        database.articleDao().getArticlesWithSource()
+        database.articleDao().getArticles()
 
-    override suspend fun insertSource(sourceEntity: SourceEntity) =
-        database.articleDao().insertSource(sourceEntity)
+    @Transaction
+    override suspend fun saveArticles(
+        articles: List<ArticleEntity>, source: List<SourceEntity>
+    ) {
+        database.sourceDao().insertSources(source)
+        database.articleDao().insertArticles(articles)
+    }
 
-    override suspend fun insertArticle(articleEntity: ArticleEntity) =
-        database.articleDao().insertArticle(articleEntity)
-
-    override suspend fun insertArticleWithSource(sourceEntity: SourceEntity, articleEntity: ArticleEntity) =
-        database.articleDao().insertArticleWithSource(sourceEntity, articleEntity)
-
-
+    override suspend fun getLocalArticleWithSource(articleTitle: String): Flow<ArticleWithSource> =
+        database.articleDao().getArticle(articleTitle)
 }

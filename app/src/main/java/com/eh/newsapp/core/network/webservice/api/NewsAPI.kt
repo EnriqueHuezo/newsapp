@@ -17,6 +17,7 @@ class NewsAPI(
         url {
             encodedPath += "top-headlines"
             parameter("country", request.country)
+            parameter("apiKey", "89436e61578840179b4ab8c7e790db95")
         }
     }.body()
 }

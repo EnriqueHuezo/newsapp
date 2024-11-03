@@ -4,4 +4,7 @@
     <!-- LocalDatasource Resources -->
     <string name="local_default_loading_message">Cargando…</string>
     <string name="local_default_saving_message">Guardando…</string>
+
+    <!-- Network Resources -->
+    <string name="network_generic_error">Ocurrio el siguiente error inesperado %s</string>
 </resources>

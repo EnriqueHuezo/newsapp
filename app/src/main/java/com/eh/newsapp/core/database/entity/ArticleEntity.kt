@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.eh.newsapp.core.database.DatabaseInfo
 import com.eh.newsapp.core.model.Article
+import com.eh.newsapp.feature.articleDetail.state.ArticleDetailUIState
 
 @Entity(
     tableName = DatabaseInfo.ARTICLES_TABLE,
@@ -41,4 +42,16 @@ data class ArticleWithSource(
         parentColumn = "sourceId",
         entityColumn = "sourceId"
     ) val sourceEntity: SourceEntity
+)
+
+fun ArticleWithSource.toArticleDetailUIState() = ArticleDetailUIState(
+    id = sourceEntity.sourceId,
+    nameSource = sourceEntity.name,
+    title = articleEntity.title,
+    author = articleEntity.author,
+    description = articleEntity.description,
+    url = articleEntity.url,
+    urlToImage = articleEntity.urlToImage,
+    publishedAt = articleEntity.publishedAt,
+    content = articleEntity.content
 )

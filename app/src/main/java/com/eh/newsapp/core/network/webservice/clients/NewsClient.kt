@@ -14,6 +14,7 @@ import io.ktor.client.request.header
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.parameters
+import io.ktor.http.parametersOf
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -38,8 +39,6 @@ class NewsClient(
         install(DefaultRequest) {
             header(HttpHeaders.ContentType, ContentType.Application.Json)
             url(context.getString(R.string.news_api_base_url))
-            parameters { System.getenv("API_KEY")?.let { append("apiKey", it) } }
         }
     }
-
 }

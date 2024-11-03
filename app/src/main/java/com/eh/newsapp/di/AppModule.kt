@@ -14,5 +14,13 @@ object AppModule {
         UseCasesModule.module
     )
 
-    val modules = module + databaseModule + useCaseModule
+    private val viewModelModule = listOf(
+        ViewModelsModule.module
+    )
+
+    private val coroutineModule = listOf(
+        CoroutinesModule.module
+    )
+
+    val modules = module + databaseModule + useCaseModule + viewModelModule + coroutineModule
 }

@@ -7,7 +7,6 @@ import com.eh.newsapp.core.network.webservice.dto.response.TopHeadlinesResponseD
 class CoreRemoteDataSource(
     private val newsAPI: INewsAPI
 ) : ICoreDataSource.Remote {
-    override suspend fun getTopHeadlines(request: TopHeadlinesRequestDTO): TopHeadlinesResponseDTO {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getTopHeadlines(request: TopHeadlinesRequestDTO): TopHeadlinesResponseDTO =
+        newsAPI.getTopHeadlines(request)
 }

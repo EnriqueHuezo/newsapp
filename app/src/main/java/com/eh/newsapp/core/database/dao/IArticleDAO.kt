@@ -11,25 +11,22 @@ import com.eh.newsapp.core.database.DatabaseInfo
 import com.eh.newsapp.core.database.entity.ArticleEntity
 import com.eh.newsapp.core.database.entity.ArticleWithSource
 import com.eh.newsapp.core.database.entity.SourceEntity
+import com.eh.newsapp.core.model.Article
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface IArticleDAO {
+    @Transaction
     @Query("SELECT * FROM ${DatabaseInfo.ARTICLES_TABLE}")
-    fun getArticlesWithSource(): Flow<List<ArticleWithSource>>
+    fun getArticles(): Flow<List<ArticleWithSource>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSource(sourceEntity: SourceEntity)
+    @Transaction
+    @Query("SELECT * FROM ${DatabaseInfo.ARTICLES_TABLE} WHERE title is :title")
+    fun getArticle(title: String): Flow<ArticleWithSource>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertArticle(articleEntity: ArticleEntity)
 
-    @Transaction
-    suspend fun insertArticleWithSource(
-        sourceEntity: SourceEntity,
-        articleEntity: ArticleEntity
-    ) {
-        insertArticle(articleEntity)
-        insertSource(sourceEntity)
-    }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertArticles(articlesEntity: List<ArticleEntity>)
 }

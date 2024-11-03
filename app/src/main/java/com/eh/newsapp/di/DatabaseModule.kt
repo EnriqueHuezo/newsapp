@@ -12,7 +12,9 @@ object DatabaseModule {
                 androidApplication(),
                 NewsDatabase::class.java,
                 "news-database"
-            ).build()
+            )
+                .fallbackToDestructiveMigration()
+                .build()
         }
     }
 }
